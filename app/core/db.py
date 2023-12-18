@@ -1,25 +1,30 @@
-import asyncio
+from contextlib import AbstractContextManager, contextmanager
+from typing import Callable
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from main.app.core.db import init_models
-
-url = f"postgresql+asyncpg://postgres:1234@localhost:5432/drivingCarSchool"
-echo = True
+from .config import settings
+from sqlalchemy.orm import Session
 
 
-engine = create_async_engine(
-    url=url,
-    echo=echo
-)
+class DataBase:
+    def __init__(self, url, echo) -> None:
+        self.engine = create_async_engine(url=url, echo=echo)
 
-Base = declarative_base()
+        self.async_session = async_sessionmaker(
+            bind=self.engine,
+            autocommit=False,
+            autoflush=False,
+        )
 
-async_session = async_sessionmaker(
-    engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
+    @contextmanager
+    async def session(self) -> Callable[..., AbstractContextManager[Session]]:
+        session: Session = self._session_factory()
+        try:
+            yield session
+        except Exception:
+            session.rollback()
+            raise
+        finally:
+            session.close()
 
-asyncio.run(init_models())
+
+data_base = DataBase(url=settings.url, echo=settings.echo)
