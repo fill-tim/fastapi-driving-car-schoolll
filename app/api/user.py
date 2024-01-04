@@ -1,18 +1,16 @@
-from sqlalchemy import select
-from sqlalchemy.engine import Result
-from fastapi import APIRouter, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
-from schemas.user import ListUsers
-from core.db import get_async_session
-from models import User
+from fastapi import APIRouter
+from ..services.user_service import UserService
+from ..schemas.user import CreateUser
+from fastapi import Depends
 
 user_router = APIRouter(tags=["users"])
 
 
-@user_router.get("/users/", response_model=ListUsers)
-async def get_list(session: AsyncSession = Depends(get_async_session)):
-    stmt = select(User)
-    print(session)
-    result: Result = await session.execute(stmt)
-    tests = result.scalars().all()
-    return list(tests)
+@user_router.get("/users/")
+async def get(userService: UserService = Depends()):
+    return await userService.get_all_users()
+
+
+@user_router.post("/create_user")
+async def create(user_in: CreateUser, userService: UserService = Depends()):
+    return await userService.create_user(user_in)
