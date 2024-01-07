@@ -1,5 +1,5 @@
 from ..repository.user_repo import UserRepo
-from ..schemas.user import CreateUser
+from ..schemas.user import CreateUser, UpdateUser
 from fastapi import Depends
 
 
@@ -7,14 +7,19 @@ class UserService:
     userRepo: UserRepo
 
     def __init__(self, user_repo: UserRepo = Depends()):
-        # self.repo: UserRepo = UserRepo
         self.userRepo = user_repo
 
     async def get_one_user(self, id: int):
-        return await self.userRepo.get_one_user_by_id()
+        return await self.userRepo.get_by_id(id)
 
     async def get_all_users(self):
-        return await self.userRepo.get_all_user()
+        return await self.userRepo.get_all()
 
     async def create_user(self, user_in: CreateUser):
-        return await self.userRepo.create_user(user_in)
+        return await self.userRepo.create(user_in)
+
+    async def delete_user(self, id: int):
+        return await self.userRepo.delete(id)
+
+    async def update_user(self, user_upd: UpdateUser):
+        return await self.userRepo.update(user_upd)
