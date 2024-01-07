@@ -12,10 +12,10 @@ class UserRepo:
         self.db = db
 
     async def get_one_user_by_id(self):
-        return await self.get()
+        pass
 
     async def get_all_user(self):
-        return await self.list()
+        pass
 
     async def create_user(self, user_in: CreateUser):
         user = User(**user_in.model_dump())

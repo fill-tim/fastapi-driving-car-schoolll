@@ -6,4 +6,4 @@ class Base(DeclarativeBase):
 
     @declared_attr.directive
     def __tablename__(cls):
-        return cls.__name__.lower()
+        return cls.__name__.lower() + 's'

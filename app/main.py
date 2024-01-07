@@ -4,12 +4,17 @@ from .models.base import Base
 from .api.user import user_router
 from .core.db import engine
 
+from . import models
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        yield
+    except Exception as error:
+        print(error)
 
 
 app = FastAPI(lifespan=lifespan)
