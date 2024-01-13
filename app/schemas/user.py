@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from fastapi_filter.contrib.sqlalchemy import Filter
 
 
 class User(BaseModel):
@@ -33,3 +34,7 @@ class UpdateUser(User):
     age: int | None = None
     # photo: ??
 
+
+class UserFilter(Filter):
+    first_name: str | None = None
+    age: int | None = None

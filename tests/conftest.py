@@ -10,7 +10,8 @@ from app.core.config import settings
 from app.main import app
 from app.core.db import get_async_session
 from app.models.base import Base
-
+from app.models import User
+from app.repository.user_repo import UserRepo
 
 engine_test = create_async_engine(settings.test_url, poolclass=NullPool)
 async_session_maker = sessionmaker(

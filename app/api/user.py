@@ -1,14 +1,15 @@
 from fastapi import APIRouter
 from ..services.user_service import UserService
-from ..schemas.user import CreateUser, UserResponse, UpdateUser
+from ..schemas.user import CreateUser, UserResponse, UpdateUser, UserFilter
 from fastapi import Depends
+from fastapi_filter import FilterDepends
 
 user_router = APIRouter(prefix="/user", tags=["users"])
 
 
-@user_router.get("/list/", response_model=list[UserResponse])
-async def list(userService: UserService = Depends()):
-    return await userService.get_all_users()
+@user_router.get("/list", response_model=list[UserResponse])
+async def list(filter: UserFilter = FilterDepends(UserFilter), userService: UserService = Depends()):
+    return await userService.get_all_users(filter)
 
 
 @user_router.get("/get_by_id/{id}", response_model=UserResponse)
