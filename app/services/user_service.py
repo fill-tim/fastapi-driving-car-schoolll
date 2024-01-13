@@ -1,5 +1,5 @@
 from ..repository.user_repo import UserRepo
-from ..schemas.user import CreateUser, UpdateUser, UserFilter
+from ..schemas.user_schema import CreateUser, UpdateUser, UserFilter
 from fastapi import Depends
 
 

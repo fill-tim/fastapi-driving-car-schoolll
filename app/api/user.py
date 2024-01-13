@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from ..services.user_service import UserService
-from ..schemas.user import CreateUser, UserResponse, UpdateUser, UserFilter
+from ..schemas.user_schema import CreateUser, UserResponse, UpdateUser, UserFilter
 from fastapi import Depends
 from fastapi_filter import FilterDepends
 
