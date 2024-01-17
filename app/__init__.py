@@ -5,6 +5,7 @@ __all__ = {
     "models",
     "core",
     "api",
+    "main"
 }
 
-from . import api, core, models, repository, schemas, services
+from . import api, core, models, repository, schemas, services, main

@@ -14,7 +14,7 @@ test_db_name = os.getenv("TEST_DB_NAME")
 
 class Config:
     url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db_name}"
-    echo = True
+    echo = False
 
     test_url = f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{test_db_name}"
     test_echo = True

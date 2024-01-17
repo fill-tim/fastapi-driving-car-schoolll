@@ -6,6 +6,7 @@ class User(BaseModel):
     first_name: str
     last_name: str
     age: int
+    phone_number: str
     # photo: ??
     telegram_user_id: int | None = None
     school_id: int | None = None
@@ -17,6 +18,7 @@ class UserResponse(BaseModel):
     first_name: str
     last_name: str
     age: int
+    phone_number: str
     # photo: ??
     telegram_user_id: int | None = None
     school_id: int | None = None
@@ -32,9 +34,11 @@ class UpdateUser(User):
     first_name: str | None = None
     last_name: str | None = None
     age: int | None = None
+    phone_number: str | None = None
     # photo: ??
 
 
 class UserFilter(Filter):
     first_name: str | None = None
     age: int | None = None
+    phone_number: str | None = None

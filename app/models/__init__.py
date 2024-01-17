@@ -9,3 +9,4 @@ from .school_car import SchoolCar
 from .school_user import SchoolUser
 from .telegram_user import TelegramUser
 from .car import Car
+from .base import Base
