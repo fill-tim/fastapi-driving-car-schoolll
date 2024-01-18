@@ -1,12 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class RegisterUser(BaseModel):
-    phone_number: str
-    password: str
-    confirm_password: str
+    phone_number: str = Field(...)
+    password: str = Field(...)
+    confirm_password: str = Field(...)
 
 
 class LoginUser(BaseModel):
-    phone_number: str
-    password: str
+    phone_number: str = Field(...)
+    password: str = Field(...)
